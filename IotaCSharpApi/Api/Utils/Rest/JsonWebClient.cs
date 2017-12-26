@@ -60,8 +60,6 @@ namespace Iota.Lib.CSharp.Api.Utils.Rest
             }
             catch (WebException ex)
             {
-                Console.WriteLine("catched: " + ex);
-
                 using (var stream = ex.Response.GetResponseStream())
                 using (var reader = new StreamReader(stream))
                 {
@@ -73,8 +71,7 @@ namespace Iota.Lib.CSharp.Api.Utils.Rest
                     }
                     catch (System.Exception)
                     {
-                        // errorResponse is not a valid JSON
-                        deserialized = errorResponse;
+                        deserialized = "Caught WebException but was unable to deserialize content (no JSON).";
                     }
                     throw new IotaApiException(deserialized, ex);
                 }
